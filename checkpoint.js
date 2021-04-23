@@ -271,8 +271,6 @@ OrderedLinkedList.prototype.removeLower = function(){
   }
 }
 
-
-
 // ----- QUEUE -----
 
 // EJERCICIO 7
@@ -305,8 +303,6 @@ function multiCallbacks(cbs1, cbs2){
     
 }
 
-
-
 // ----- BST -----
 
 // EJERCICIO 8
@@ -333,8 +329,6 @@ BinarySearchTree.prototype.toArray = function() {
   return array;
 };    
 
-
-
 // ----- Algoritmos -----
 
 // Ejercicio 9
@@ -349,9 +343,36 @@ BinarySearchTree.prototype.toArray = function() {
 // informarse sobre algoritmos, leerlos de un pseudocodigo e implemnterlos alcanzara
 
 function primalityTest(n) {
-    
+// Para este ejercicio utilicé el cálculo de factorial de los ejercicios de clase
+// Entiendo que si la lista devuelve un sol valor, o el valor 1 + x, es un número primo, caso contrario no.
+  var lista   = [1];
+  var divisor = 2;
+if (n < 2) return false;
+if (n > 2) {
+  while (n/divisor > 1) {
+  if (n % divisor !== 0) {
+      divisor ++;
+    } 
+  else {
+    n = n/divisor;
+    lista.push(divisor); 
+    divisor = 2;
+    }
+  }  
+  if (n = divisor) {
+    lista.push(divisor); 
+    };  
+  }
+  if (lista.length === 1) {
+    return true;
+  }
+  else{
+    if (lista.length === 2 && lista[0] === 1){
+      return true;
+    };
+  return false;
+  }
 }
-
 
 // EJERCICIO 10
 // Implementa el algoritmo conocido como 'quickSort', que dado un arreglo de elemntos

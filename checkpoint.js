@@ -109,13 +109,20 @@ function direcciones(laberinto, camino = '') {
 // deepEqualArrays([0,1,[[0,1,2],1,2]], [0,1,[[0,1,2],1,2]]) => true
 
 function deepEqualArrays(arr1, arr2) {
-  var compara = true;
-  var aux;
 
   // primero uso el comparador estandar
   if (arr1 === arr2) return true;
 
-  // Si el === dio distinto, recorro en profundidad y comparo uno a uno   
+  // Si el === dio distinto, recorro en profundidad y comparo uno a uno 
+  for (i=0; i< arr1.length; i++){
+    if ((typeof arr1[i]) === (typeof arr2[i])){
+      if (arr1[i] === arr2[i]){}
+      else {
+        return false;
+      }   
+    }
+  }
+  return true;
 }
 
 // ----- LinkedList -----
@@ -294,6 +301,7 @@ OrderedLinkedList.prototype.removeLower = function(){
 // < ["2-1", "1-1", "1-2", "2-2"];
 
 function multiCallbacks(cbs1, cbs2){
+
     
 }
 
@@ -314,7 +322,15 @@ function multiCallbacks(cbs1, cbs2){
 
 BinarySearchTree.prototype.toArray = function() {
   var array = [];
-    return array;
+
+// Chequeo si el arbol tiene algo
+  if (this.root === null) return array;
+    
+  // Recorro el arbol
+  if (this.rott !== null) {
+  // si existe lo cargo en el array   
+    }
+  return array;
 };    
 
 

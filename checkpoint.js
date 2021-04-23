@@ -34,7 +34,9 @@ const {
 
 function exponencial(exp) {
   var resultado = 0;
+  // llamo a la función que ata a la variable resultado
     return function (parametro){
+  // hago el cálculo    
     resultado = Math.pow(parametro, exp) ;
     return resultado;
     };
@@ -163,53 +165,52 @@ OrderedLinkedList.prototype.print = function(){
 //           4
 
 OrderedLinkedList.prototype.add = function(val){
-/*    const nuevo = new Node(val);
+    const nuevo = new Node(val);
     var actual;
     var fin = false;
     var previo;
 
     // Si la cabecera es null, debo crearla
     // creo el nodo con "nuevo", que antes definí como "new Node...""  
-      if (this.head === null){
-        return this.head = nuevo;  
+    if (this.head === null){
+      return this.head = nuevo;  
+      }
+   // Valido si cabecera es menor que el valor, y nuevo nodo pasa a ser cabecera
+      if (val >= this.head.value){
+   // en previo guardo el puntero de head     
+        previo         = this.head.next;
+   // creo el nuevo head     
+        this.head      = nuevo;
+   // apunto del nuevo head al anterior
+        this.head.next = previo;
+        fin = true;
+        return;
         }
-      else {
-  // Si no y cabecera es menor que el valor, nuevo nodo es cabecera
-        if (val >= this.head.value){
-    // Si val es mayor que actual.value, inserto como head 
-          actual = this.head;
-          this.head = nuevo;
-          this.next = actual;
-          fin = true;
-          return;
-          }
-        else {
-    // si el nuevo a insertar no es mayor igual que head, empiezo a recorrer la lista
-          previo = this;
-          actual = this.next;
-/*          while (!fin) {     // Recorro hasta que grabe el nodo y pongo fin = true    
-            if (val >= actual.value) { // Si valor a ingresar es mayor que el actual, inserto delante del actual
+    // si el nuevo es  menor que head, recorrer la lista buscando su lugar
+      previo = this.head;
+      actual = this.head.next;
+
+      while (!fin) {     // Recorro hasta que grabe el nodo y pongo fin = true    
+        if (val >= actual.value) { // Si valor a ingresar es mayor que el actual, inserto delante del actual
 // en previo tenía el nodo anterior así que cambio el puntero al nuevo que creo
-              previo.next = nuevo;
+          previo.next = nuevo;
 // el nodo nuevo que cree, hago que apunte al next que tenía en el nodo que estaba leyendo 
-              nuevo.next  = actual.next; 
-              fin = true;
-              }
+          nuevo.next  = actual.next; 
+          fin = true;
+          }
     // si el nuevo a insertar es menor, pregunto si estoy en el último nodo        
-            else { 
-              if (actual.next = null){
+        else { 
+          if (actual.next = null){
               // si estoy en el último, quiere decir que el nodo a insertar es el menor y lo creo al final de la lista    
-                actual.next = nuevo;
-                fin = true; 
-                return
-              }
-             // si no es el ultimo, sigo recorriendo
-              previo = actual;
-              actual = actual.next;
-              }     
+            actual.next = nuevo;
+            fin = true; 
+            return
+            }
+    // si no es el ultimo, sigo recorriendo
+          previo = actual;
+          actual = actual.next;
         } 
     }
-*/
 }
 
 // EJERCICIO 5
@@ -357,7 +358,7 @@ function quickSort(array) {
       else {
         izq.push(array[i]); }
       }  
-      return quickSort(der).concat(pivote, quickSort(izq));
+      return quickSort(izq).concat(pivote, quickSort(der));
 }
 
 // QuickSort ya lo conocen solo que este 

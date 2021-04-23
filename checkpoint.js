@@ -33,7 +33,11 @@ const {
 // < 16
 
 function exponencial(exp) {
-
+  var resultado = 0;
+    return function (parametro){
+    resultado = Math.pow(parametro, exp) ;
+    return resultado;
+    };
 }
 
 // ----- Recursión -----
@@ -69,8 +73,23 @@ function exponencial(exp) {
 // haciendo los movimientos SUR->ESTE->NORTE
 // Aclaraciones: el segundo parametro que recibe la funcion ('direccion') puede ser pasado vacio (null)
 
-function direcciones(laberinto) {
-
+//function direcciones(laberinto) {
+function direcciones(laberinto, camino = '') {
+// primero verifico si trae laberinto
+    if (!laberinto) return camino;
+// cuando laberinto trae algo, lo recorro buscando el camino para salir  
+    for (const clave in laberinto) {
+// si clave es diferente de pared, sé que es el camino y lo guardo        
+        if (laberinto[clave] !== 'pared') {
+            camino = camino + clave;
+// si la clave a su vez es un objeto con interno, lo recorro con recursión            
+            if (typeof(laberinto[clave]) === 'object') {
+                camino = direcciones(laberinto[clave], camino)
+            }
+        }
+      }
+// Devuelve el camino a la salida      
+    return camino
 }
 
 
@@ -88,10 +107,14 @@ function direcciones(laberinto) {
 // deepEqualArrays([0,1,[[0,1,2],1,2]], [0,1,[[0,1,2],1,2]]) => true
 
 function deepEqualArrays(arr1, arr2) {
+  var compara = true;
+  var aux;
 
+  // primero uso el comparador estandar
+  if (arr1 === arr2) return true;
+
+  // Si el === dio distinto, recorro en profundidad y comparo uno a uno   
 }
-
-
 
 // ----- LinkedList -----
 
@@ -121,7 +144,6 @@ OrderedLinkedList.prototype.print = function(){
     return print
 }
 
-
 // EJERCICIO 4
 // Crea el metodo 'add' que debe agregar nodos a la OLL de forma que la misma se conserve ordenada:
 // Ejemplo:
@@ -137,11 +159,58 @@ OrderedLinkedList.prototype.print = function(){
 // > LL.add(4)
 // > LL.print()
 // < 'head --> 5 --> 3 --> 1 --> null'
-//               4
-OrderedLinkedList.prototype.add = function(val){
-    
-}
+//   
+//           4
 
+OrderedLinkedList.prototype.add = function(val){
+/*    const nuevo = new Node(val);
+    var actual;
+    var fin = false;
+    var previo;
+
+    // Si la cabecera es null, debo crearla
+    // creo el nodo con "nuevo", que antes definí como "new Node...""  
+      if (this.head === null){
+        return this.head = nuevo;  
+        }
+      else {
+  // Si no y cabecera es menor que el valor, nuevo nodo es cabecera
+        if (val >= this.head.value){
+    // Si val es mayor que actual.value, inserto como head 
+          actual = this.head;
+          this.head = nuevo;
+          this.next = actual;
+          fin = true;
+          return;
+          }
+        else {
+    // si el nuevo a insertar no es mayor igual que head, empiezo a recorrer la lista
+          previo = this;
+          actual = this.next;
+/*          while (!fin) {     // Recorro hasta que grabe el nodo y pongo fin = true    
+            if (val >= actual.value) { // Si valor a ingresar es mayor que el actual, inserto delante del actual
+// en previo tenía el nodo anterior así que cambio el puntero al nuevo que creo
+              previo.next = nuevo;
+// el nodo nuevo que cree, hago que apunte al next que tenía en el nodo que estaba leyendo 
+              nuevo.next  = actual.next; 
+              fin = true;
+              }
+    // si el nuevo a insertar es menor, pregunto si estoy en el último nodo        
+            else { 
+              if (actual.next = null){
+              // si estoy en el último, quiere decir que el nodo a insertar es el menor y lo creo al final de la lista    
+                actual.next = nuevo;
+                fin = true; 
+                return
+              }
+             // si no es el ultimo, sigo recorriendo
+              previo = actual;
+              actual = actual.next;
+              }     
+        } 
+    }
+*/
+}
 
 // EJERCICIO 5
 // Crea el metodo 'removeHigher' que deve devolver el valor mas alto de la linked list 
@@ -159,7 +228,10 @@ OrderedLinkedList.prototype.add = function(val){
 // < null
 
 OrderedLinkedList.prototype.removeHigher = function(){
-    
+  if (this.head === null) return this.value;
+    // como la lista está ordenada de mayor a menor, remover el mayor es igual a remover el head 
+  this.head = this.head.next;
+  return this.value;
 }
 
 
@@ -179,7 +251,16 @@ OrderedLinkedList.prototype.removeHigher = function(){
 // < null
 
 OrderedLinkedList.prototype.removeLower = function(){
-    
+  let fin = false;
+  if (this.head === null) return null;
+  // como la lista está ordenada de mayor a menor, remover el menor requiere ir al ultimo nodo y borrarlo 
+  while (!fin) {     // Recorro hasta que se cumple condicion de salida    
+    if (this.next.next === null) { // Si el siguiente del actual es el último
+      this.next = null;
+      fin = true;
+    }
+  return this.value;    
+  }
 }
 
 
@@ -231,8 +312,9 @@ function multiCallbacks(cbs1, cbs2){
 // resultado:[5,8,9,32,64]
 
 BinarySearchTree.prototype.toArray = function() {
-    
-}
+  var array = [];
+    return array;
+};    
 
 
 
@@ -260,8 +342,24 @@ function primalityTest(n) {
 // https://en.wikipedia.org/wiki/Quicksort
 
 function quickSort(array) {
-    
+// Si el arreglo está vacío finalizo
+  if (array.length <= 1) { 
+    return array; } 
+
+    var pivote = array[0]; 
+    var izq = []; 
+    var der = []; 
+// Recorro el array    
+    for (var i = 1; i < array.length; i++) { 
+      if (array[i] > pivote){
+        der.push(array[i])
+      }
+      else {
+        izq.push(array[i]); }
+      }  
+      return quickSort(der).concat(pivote, quickSort(izq));
 }
+
 // QuickSort ya lo conocen solo que este 
 // ordena de mayor a menor
 // para esto hay que unir como right+mid+left o cambiar el 
